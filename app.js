@@ -5,17 +5,9 @@ let wind = document.getElementById("wind");
 let img = document.getElementById("img");
 let name = document.getElementById("name");
 let inputvalue = document.getElementById("input");
-async function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        console.log("Geolocation is not supported by this browser.")
-    }
- }
-
  {
 function weatherSearch() {
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputvalue.value + '&appid=91e3bd97109d2f58620832e6852f11f5')
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + inputvalue.value + '&appid=91e3bd97109d2f58620832e6852f11f5&units=metric')
         .then(response => response.json())
         .then(data => {
             let nameValue = data["name"];
@@ -32,6 +24,8 @@ function weatherSearch() {
             img.src =
             "https://openweathermap.org/img/wn/" + icon + ".png"
 
+        }).catch(err => {
+            swal("City not found!");
         })
        }
 }
