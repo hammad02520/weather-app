@@ -43,12 +43,30 @@ document.getElementById("submit").onclick = function() {
   }
 }
 
+function weatherSearch2() {
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=karachi&appid=91e3bd97109d2f58620832e6852f11f5&units=metric')
+        .then(response => response.json())
+        .then(data => {
+            let nameValue = data["name"];
+            let tempValue = data["main"]["temp"];
+            name.innerHTML =`Weather in ` + nameValue;
+            temp.innerHTML = tempValue + `°C`
+            let speedValue = data["wind"]["speed"];
+            wind.innerHTML =`Wind : ` +speedValue+ ` km/h`
+            let description2 = data["weather"][0]["description"]
+            description.innerHTML = description2
+            let humidity1 = data["main"]["humidity"]
+            humidity.innerHTML = `Humidity :  `+humidity1+ `%`
+            let icon = data["weather"][0]["icon"]
+            img.src =
+            "https://openweathermap.org/img/wn/" + icon + ".png"
 
+        }).catch(err => {
+            swal("City not found!");
+        })
+}
 
-
-
-
-
+weatherSearch2()
 
 
 
